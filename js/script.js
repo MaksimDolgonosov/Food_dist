@@ -213,7 +213,6 @@ card2.insertCard();
 // отправка данных на сервер
 
 const forms = document.querySelectorAll('form');
-console.log(forms);
 forms.forEach(e => {
     postData(e);
 });
