@@ -156,8 +156,9 @@ let timeoutOpenModal = setTimeout(openModal, 999999000);
 // создание карточек
 
 class Card {
-    constructor(image, menuName, descripton, price, ...classes) {
+    constructor(image, alt, menuName, descripton, price, ...classes) {
         this.image = image;
+        this.alt = alt;
         this.menuName = menuName;
         this.descripton = descripton;
         this.price = price;
@@ -179,7 +180,7 @@ class Card {
 
         cardsContainer.append(element);
         element.innerHTML = ` 
-        <img src=${this.image} alt="vegy">
+        <img src=${this.image} alt=${this.alt}>
         <h3 class="menu__item-subtitle">${this.menuName}</h3>
         <div class="menu__item-descr">${this.descripton}</div>
         <div class="menu__item-divider"></div>
@@ -196,18 +197,27 @@ class Card {
 
 }
 
+fetch('db.json')
+    .then(data => data.json())
+    .then(res => {
+        res.menu.forEach(({ img, altimg, title, descr, price }) => {
+            new Card(img, altimg, title, descr, price).insertCard();
+        });
+    }); // без Json-server
 
-let card1 = new Card("img/tabs/vegy.jpg", `Меню "Фитнес"`, `Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
-овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
-ценой и высоким качеством!`, '10');
-let card2 = new Card("img/tabs/elite.jpg", `Меню "Премиум"`, `В меню “Премиум” мы используем не только красивый дизайн упаковки, но
-и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода
-в ресторан!`, '15', "menu__item");
-new Card("img/tabs/post.jpg", `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
-продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
-количество белков за счет тофу и импортных вегетарианских стейков.`, '8', "menu__item").insertCard();
-card1.insertCard();
-card2.insertCard();
+// let card1 = new Card("img/tabs/vegy.jpg", "vegy", `Меню "Фитнес"`, `Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
+// овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
+// ценой и высоким качеством!`, '10');
+// card1.insertCard();
+// let card2 = new Card("img/tabs/elite.jpg", `Меню "Премиум"`, `В меню “Премиум” мы используем не только красивый дизайн упаковки, но
+// и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода
+// в ресторан!`, '15', "menu__item");
+// card2.insertCard();
+// new Card("img/tabs/post.jpg", `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
+// продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
+// количество белков за счет тофу и импортных вегетарианских стейков.`, '8', "menu__item").insertCard();
+
+
 
 
 // отправка данных на сервер
@@ -244,7 +254,7 @@ function postData(form) {
         });
 
 
-        fetch("server.php", {
+        fetch("db.json", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -318,6 +328,6 @@ function showThanksModal(messageText) {
     }, 3000);
 }
 
-// fetch('https://jsonplaceholder.typicode.com/posts/1')
-//     .then(response => response.text())
-//     .then(json => console.log(json));
+// fetch('db.json')
+//     .then(data => data.json())
+//     .then(res => console.log(res.menu));
