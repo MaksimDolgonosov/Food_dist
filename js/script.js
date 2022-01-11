@@ -197,13 +197,23 @@ class Card {
 
 }
 
-fetch('db.json')
+// fetch('db.json')
+//     .then(data => data.json())
+//     .then(res => {
+//         res.menu.forEach(({ img, altimg, title, descr, price }) => {
+//             new Card(img, altimg, title, descr, price).insertCard();
+//         });
+//     }); // без Json-server
+
+fetch('http://localhost:3000/menu')
     .then(data => data.json())
     .then(res => {
-        res.menu.forEach(({ img, altimg, title, descr, price }) => {
+        res.forEach(({ img, altimg, title, descr, price }) => {
             new Card(img, altimg, title, descr, price).insertCard();
         });
-    }); // без Json-server
+    });
+
+
 
 // let card1 = new Card("img/tabs/vegy.jpg", "vegy", `Меню "Фитнес"`, `Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
 // овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
