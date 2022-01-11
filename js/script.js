@@ -205,8 +205,14 @@ class Card {
 //         });
 //     }); // без Json-server
 
-fetch('http://localhost:3000/menu')
-    .then(data => data.json())
+const getResourse = async (url) => {
+    const res = await fetch(url);
+    return await res.json();
+};
+
+getResourse('http://localhost:3000/menu')
+    // fetch('http://localhost:3000/menu')
+    //.then(data => data.json())
     .then(res => {
         res.forEach(({ img, altimg, title, descr, price }) => {
             new Card(img, altimg, title, descr, price).insertCard();
@@ -214,30 +220,25 @@ fetch('http://localhost:3000/menu')
     });
 
 
-
-// let card1 = new Card("img/tabs/vegy.jpg", "vegy", `Меню "Фитнес"`, `Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
-// овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
-// ценой и высоким качеством!`, '10');
-// card1.insertCard();
-// let card2 = new Card("img/tabs/elite.jpg", `Меню "Премиум"`, `В меню “Премиум” мы используем не только красивый дизайн упаковки, но
-// и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода
-// в ресторан!`, '15', "menu__item");
-// card2.insertCard();
-// new Card("img/tabs/post.jpg", `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
-// продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
-// количество белков за счет тофу и импортных вегетарианских стейков.`, '8', "menu__item").insertCard();
-
-
-
-
 // отправка данных на сервер
 
 const forms = document.querySelectorAll('form');
 forms.forEach(e => {
-    postData(e);
+    bindPostData(e);
 });
 
-function postData(form) {
+const postData = async (url, data) => {
+    const res = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: data
+    });
+    return await res.json();
+};
+
+function bindPostData(form) {
     form.addEventListener("submit", element => {
         element.preventDefault();
         let message = {
@@ -264,24 +265,18 @@ function postData(form) {
         });
 
 
-        fetch("db.json", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(jsonRequest)
-        }).then(data => {
-            return data.text();
-        }).then(data => {
-            console.log(data);
-            showThanksModal(message.success);
-            statusMessage.remove();
-        }).catch(() => {
-            showThanksModal(message.failure);
-            console.log("Fail");
-        }).finally(() => {
-            form.reset();
-        });
+
+        postData("http://localhost:3000/requests", JSON.stringify(jsonRequest))
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+                console.log("Fail");
+            }).finally(() => {
+                form.reset();
+            });
 
         // const request = new XMLHttpRequest();
         // request.open("POST", "server.php");
