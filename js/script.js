@@ -207,8 +207,13 @@ class Card {
 
 const getResourse = async (url) => {
     const res = await fetch(url);
+    if (!res.ok) {
+        throw new Error(`Couldn't fetch ${url}, status: ${res.status} `);
+    }
     return await res.json();
 };
+
+
 
 getResourse('http://localhost:3000/menu')
     // fetch('http://localhost:3000/menu')
@@ -259,14 +264,15 @@ function bindPostData(form) {
         // statusMessage.textContent = message.loading;
         // form.appendChild(statusMessage);
         const formData = new FormData(form);
-        let jsonRequest = {};
-        formData.forEach((item, key) => {
-            jsonRequest[key] = item;
-        });
 
+        // let jsonRequest = {};
+        // formData.forEach((item, key) => {
+        //     jsonRequest[key] = item;
+        // });
 
+        const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-        postData("http://localhost:3000/requests", JSON.stringify(jsonRequest))
+        postData("http://localhost:3000/requests", json)
             .then(data => {
                 console.log(data);
                 showThanksModal(message.success);
@@ -336,3 +342,5 @@ function showThanksModal(messageText) {
 // fetch('db.json')
 //     .then(data => data.json())
 //     .then(res => console.log(res.menu));
+
+
