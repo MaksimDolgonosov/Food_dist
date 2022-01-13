@@ -97,16 +97,17 @@ function setClock(endtime) {
         }
     }
 
-    function getZero(i) {
-        if (i >= 10 && i < 0) {
-            return i;
-        } else {
-            return `0${i}`;
-        }
-    }
+
 }
 setClock(endtime);
 
+function getZero(i) {
+    if (i >= 10 && i < 0) {
+        return i;
+    } else {
+        return `0${i}`;
+    }
+}
 
 // Открытие модального окна
 
@@ -339,8 +340,44 @@ function showThanksModal(messageText) {
     }, 3000);
 }
 
-// fetch('db.json')
-//     .then(data => data.json())
-//     .then(res => console.log(res.menu));
+// слайдер
+
+const nextBtn = document.querySelector(".offer__slider-next");
+const prevBtn = document.querySelector(".offer__slider-prev");
+const slides = document.querySelectorAll(".offer__slide");
+document.querySelector("#total").textContent = getZero(slides.length);
+let actingSlide = 0;
+document.querySelector("#current").textContent = getZero((actingSlide + 1));
+showSlide(0);
+
+function showSlide(numberOfSlide) {
+    slides.forEach(slide => slide.classList.add("hide"));
+    slides.forEach(slide => slide.classList.remove("fade"));
+    slides[numberOfSlide].classList.remove("hide");
+    slides[numberOfSlide].classList.add("fade");
+    slides[numberOfSlide].classList.add("show");
+}
+
+
+nextBtn.addEventListener("click", () => {
+    actingSlide++;
+    if (actingSlide > 3) {
+        actingSlide = 0;
+    }
+    showSlide(actingSlide);
+    document.querySelector("#current").textContent = getZero((actingSlide + 1));
+
+});
+
+prevBtn.addEventListener("click", () => {
+    actingSlide--;
+    if (actingSlide < 0) {
+        actingSlide = 3;
+    }
+    showSlide(actingSlide);
+    document.querySelector("#current").textContent = getZero((actingSlide + 1));
+
+});
+
 
 
