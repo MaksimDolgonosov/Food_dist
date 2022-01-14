@@ -381,7 +381,7 @@ document.querySelector("#current").textContent = getZero((actingSlide + 1));
 
 
 // слайдер (второй вариант)
-
+const slider = document.querySelector(".offer__slider");
 const slidesWraper = document.querySelector(".offer__slider-wrapper");
 const slidesField = document.querySelector(".offer__slider-inner");
 const width = window.getComputedStyle(slidesWraper).width;
@@ -428,5 +428,35 @@ prevBtn.addEventListener("click", () => {
     document.querySelector("#current").textContent = getZero((actingSlide + 1));
 
 
+});
+
+// навигация слайдера (точки)
+
+slider.style.position = "relative";
+let dots = [];
+let indicators = document.createElement("ol");
+indicators.classList.add("carousel-indicators");
+slider.append(indicators);
+
+for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement("li");
+    dot.setAttribute("data-slide-to", i);
+    dot.classList.add("dot");
+    indicators.append(dot);
+    dots.push(dot);
+    if (i == 0) {
+        dot.style.opacity = "1";
+    }
+}
+
+dots.forEach((dot, i) => {
+    dot.addEventListener("click", (element) => {
+        let slideIndex = element.target.getAttribute("data-slide-to");
+        offset = +width.slice(0, width.length - 2) * slideIndex;
+        slidesField.style.transform = `translateX(-${offset}px)`;
+        dots.forEach(el => el.style.opacity = "0.5");
+        element.target.style.opacity = "1";
+        document.querySelector("#current").textContent = getZero((+slideIndex + 1));
+    });
 });
 
