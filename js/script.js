@@ -407,7 +407,8 @@ nextBtn.addEventListener("click", () => {
     if (actingSlide > 3) {
         actingSlide = 0;
     }
-
+    dots.forEach(el => el.style.opacity = "0.5");
+    dots[actingSlide].style.opacity = "1";
     document.querySelector("#current").textContent = getZero((actingSlide + 1));
 
 
@@ -424,7 +425,8 @@ prevBtn.addEventListener("click", () => {
     if (actingSlide < 0) {
         actingSlide = 3;
     }
-
+    dots.forEach(el => el.style.opacity = "0.5");
+    dots[actingSlide].style.opacity = "1";
     document.querySelector("#current").textContent = getZero((actingSlide + 1));
 
 
@@ -451,6 +453,7 @@ for (let i = 0; i < slides.length; i++) {
 
 dots.forEach((dot, i) => {
     dot.addEventListener("click", (element) => {
+        //let slideIndex = i;
         let slideIndex = element.target.getAttribute("data-slide-to");
         offset = +width.slice(0, width.length - 2) * slideIndex;
         slidesField.style.transform = `translateX(-${offset}px)`;
