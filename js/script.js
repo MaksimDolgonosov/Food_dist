@@ -463,3 +463,33 @@ dots.forEach((dot, i) => {
     });
 });
 
+// Калькулятор каллорий
+let sex, height, weight, age, active;
+
+const result = document.querySelector(".calculating__result span");
+
+
+// let resultMale = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * active;
+// let sesultFemale = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * active;
+
+calcTotal();
+
+function calcTotal() {
+    if (!sex || !height || !weight || !age || !active) {
+        result.textContent = 0;
+        return; // обязательно
+    } else {
+        if (sex == "male") {
+            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * active;
+        } else {
+            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * active;
+        }
+    }
+}
+
+function getStaticInformaton(parentElement, activeClass) {
+    let input = document.querySelector(`${parentElement} div`);
+
+}
+let input = document.querySelectorAll(`#gender div`);
+console.log(input);
