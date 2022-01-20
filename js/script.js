@@ -141,10 +141,13 @@ btnsOpen.forEach(e => {
 //btnClose.addEventListener("click", closeModal);
 
 window.addEventListener("scroll", () => {
-    if (window.pageYOffset + document.documentElement.clientHeight == document.documentElement.scrollHeight) {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
         openModal();
     }
 });
+
+
+
 
 window.addEventListener("keydown", (k) => {
     if (modal.style.display == "block" && k.code === "Escape") {
@@ -464,7 +467,9 @@ dots.forEach((dot, i) => {
 });
 
 // Калькулятор каллорий
-let sex, height, weight, age, active;
+let sex="male", 
+height, weight, age, 
+active=;
 
 const result = document.querySelector(".calculating__result span");
 
@@ -480,16 +485,57 @@ function calcTotal() {
         return; // обязательно
     } else {
         if (sex == "male") {
-            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * active;
+            result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * active);
         } else {
-            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * active;
+            result.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * active);
         }
     }
 }
 
+
 function getStaticInformaton(parentElement, activeClass) {
-    let input = document.querySelector(`${parentElement} div`);
+    let input = document.querySelectorAll(`${parentElement} div`);
+
+    input.forEach(btn => {
+        btn.addEventListener("click", e => {
+            if (e.target.getAttribute("data-active")) {
+                active = e.target.getAttribute("data-active");
+
+                input.forEach(el => el.classList.remove("calculating__choose-item_active"));
+                e.target.classList.add("calculating__choose-item_active");
+                calcTotal();
+            } else {
+                sex = e.target.getAttribute("id");
+
+                input.forEach(el => el.classList.remove("calculating__choose-item_active"));
+                e.target.classList.add("calculating__choose-item_active");
+                calcTotal();
+            }
+        });
+    });
+}
+getStaticInformaton("#gender", "calculating__choose-item_active");
+getStaticInformaton(".calculating__choose_big", "calculating__choose-item_active");
+
+function getDinamycInformation(selector) {
+    let input = document.querySelector(selector);
+    input.addEventListener("input", () => {
+        switch (input.getAttribute("id")) {
+            case "height":
+                height = input.value;
+                break;
+            case "weight":
+                weight = input.value;
+                break;
+            case "age":
+                age = input.value;
+                break;
+        }
+        calcTotal();
+    });
 
 }
-let input = document.querySelectorAll(`#gender div`);
-console.log(input);
+
+getDinamycInformation("#height");
+getDinamycInformation("#weight");
+getDinamycInformation("#age");
