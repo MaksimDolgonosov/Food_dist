@@ -112,4 +112,4 @@ getDinamycInformation("#age");
 
 
 }
-module.exports = calc;
+export default calc;

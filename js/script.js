@@ -1,14 +1,15 @@
 
 "use strict";
+import tabs from "./modules/tabs";
+import timer from "./modules/timer";
+import modal from "./modules/modal";
+import forms from "./modules/forms";
+import cards from "./modules/cards";
+import slider from "./modules/slider";
+import calc from "./modules/calc";
 window.addEventListener('DOMContentLoaded', function () {
 
-    const tabs = require("./modules/tabs");
-    const timer = require("./modules/timer");
-    const modal = require("./modules/modal");
-    const forms = require("./modules/forms");
-    const cards = require("./modules/cards");
-    const slider = require("./modules/slider");
-    const calc = require("./modules/calc");
+
 
     tabs();
     timer();
