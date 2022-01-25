@@ -2,7 +2,6 @@ function tabs() {
     // Табы 
     const headerList = document.querySelector(".tabheader__items");
     const tabItems = document.querySelectorAll(".tabheader__item");
-    const container = document.querySelector(".tabcontainer");
     const imgHam = document.querySelectorAll(".tabcontainer img")[3];
     const tabs = document.querySelectorAll(".tabcontent");
 

@@ -1,14 +1,14 @@
 import { getZero } from "./timer";
 
-function slider() {
+function slider({ everySlide, nextArrow, previousArrow, wrapper, field, container, totalCouner, currentCounter }) {
     // слайдер
 
-    const nextBtn = document.querySelector(".offer__slider-next");
-    const prevBtn = document.querySelector(".offer__slider-prev");
-    const slides = document.querySelectorAll(".offer__slide");
-    document.querySelector("#total").textContent = getZero(slides.length);
+    const nextBtn = document.querySelector(nextArrow);
+    const prevBtn = document.querySelector(previousArrow);
+    const slides = document.querySelectorAll(everySlide);
+    document.querySelector(totalCouner).textContent = getZero(slides.length);
     let actingSlide = 0;
-    document.querySelector("#current").textContent = getZero((actingSlide + 1));
+    document.querySelector(currentCounter).textContent = getZero((actingSlide + 1));
 
     // showSlide(0);
     // function showSlide(numberOfSlide) {
@@ -42,9 +42,9 @@ function slider() {
 
 
     // слайдер (второй вариант)
-    const slider = document.querySelector(".offer__slider");
-    const slidesWraper = document.querySelector(".offer__slider-wrapper");
-    const slidesField = document.querySelector(".offer__slider-inner");
+    const slider = document.querySelector(container);
+    const slidesWraper = document.querySelector(wrapper);
+    const slidesField = document.querySelector(field);
     const width = window.getComputedStyle(slidesWraper).width;
     slidesField.style.width = 100 * slides.length + "%";
 
@@ -70,7 +70,7 @@ function slider() {
         }
         dots.forEach(el => el.style.opacity = "0.5");
         dots[actingSlide].style.opacity = "1";
-        document.querySelector("#current").textContent = getZero((actingSlide + 1));
+        document.querySelector(currentCounter).textContent = getZero((actingSlide + 1));
 
 
     });
@@ -88,7 +88,7 @@ function slider() {
         }
         dots.forEach(el => el.style.opacity = "0.5");
         dots[actingSlide].style.opacity = "1";
-        document.querySelector("#current").textContent = getZero((actingSlide + 1));
+        document.querySelector(currentCounter).textContent = getZero((actingSlide + 1));
 
 
     });
@@ -120,7 +120,7 @@ function slider() {
             slidesField.style.transform = `translateX(-${offset}px)`;
             dots.forEach(el => el.style.opacity = "0.5");
             element.target.style.opacity = "1";
-            document.querySelector("#current").textContent = getZero((+slideIndex + 1));
+            document.querySelector(currentCounter).textContent = getZero((+slideIndex + 1));
         });
     });
 

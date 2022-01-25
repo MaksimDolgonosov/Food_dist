@@ -1,17 +1,16 @@
 
 function getZero(i) {
-    if (i >= 10 && i < 0) {
+    if (i >= 10) {
         return i;
     } else {
         return `0${i}`;
     }
 }
 
-function timer() {
+function timer(id, endtime) {
 
     // Обратный таймер
 
-    const endtime = `2021-12-27 15:01`;
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date());
         let days = Math.floor(t / (1000 * 60 * 60 * 24));
@@ -29,8 +28,8 @@ function timer() {
     }
 
 
-    function setClock(endtime) {
-        let timer = document.querySelector(".timer");
+    function setClock(id, endtime) {
+        let timer = document.querySelector(id);
         let days = timer.querySelector("#days");
         let hours = timer.querySelector("#hours");
         let minutes = timer.querySelector("#minutes");
@@ -54,7 +53,7 @@ function timer() {
 
 
     }
-    setClock(endtime);
+    setClock(id, endtime);
 
 
 }
