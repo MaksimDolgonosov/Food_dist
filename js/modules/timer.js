@@ -1,3 +1,12 @@
+
+function getZero(i) {
+    if (i >= 10 && i < 0) {
+        return i;
+    } else {
+        return `0${i}`;
+    }
+}
+
 function timer() {
 
     // Обратный таймер
@@ -47,13 +56,8 @@ function timer() {
     }
     setClock(endtime);
 
-    function getZero(i) {
-        if (i >= 10 && i < 0) {
-            return i;
-        } else {
-            return `0${i}`;
-        }
-    }
+
 }
 
 export default timer;
+export { getZero };

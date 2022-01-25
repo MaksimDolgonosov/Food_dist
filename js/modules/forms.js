@@ -1,4 +1,6 @@
-function forms() {
+import { openModal, closeModal } from "./modal";
+
+function forms(timeoutOpenModal) {
     // отправка данных на сервер
 
     const forms = document.querySelectorAll('form');
@@ -95,7 +97,7 @@ function forms() {
     function showThanksModal(messageText) {
         let previousModal = document.querySelector(".modal__content");
         previousModal.classList.add("hide");
-        openModal();
+        openModal(".modal", timeoutOpenModal);
         let thanksModal = document.createElement("div");
         thanksModal.classList.add("modal__content");
         thanksModal.innerHTML = `
@@ -109,7 +111,7 @@ function forms() {
             thanksModal.remove();
             previousModal.classList.remove("hide");
             previousModal.classList.add("show");
-            closeModal();
+            closeModal(".modal");
         }, 3000);
     }
 

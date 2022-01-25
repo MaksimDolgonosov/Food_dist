@@ -1,3 +1,5 @@
+import { getZero } from "./timer";
+
 function slider() {
     // слайдер
 
