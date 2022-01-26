@@ -1,5 +1,14 @@
+require('es7-object-polyfill');
+import 'formdata-polyfill';
+import 'dom-node-polyfills';
+import 'whatwg-fetch';
+import 'core-js/stable/symbol';
+import 'core-js/actual/promise';
+var Promise = require('es6-promise-polyfill').Promise;
+import 'nodelist-foreach-polyfill';
+import 'core-js/es/object';
 
-"use strict";
+//"use strict";
 import tabs from "./modules/tabs";
 import timer from "./modules/timer";
 import modal from "./modules/modal";
@@ -26,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
         wrapper: ".offer__slider-wrapper",
         field: ".offer__slider-inner",
         container: ".offer__slider",
-        totalCouner:"#total",
+        totalCouner: "#total",
         currentCounter: "#current"
     });
 

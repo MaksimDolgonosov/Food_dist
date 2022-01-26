@@ -30,6 +30,12 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "babel-loader": "^8.2.3"
+    "babel-loader": "^8.2.3",
+    "dom-node-polyfills": "^1.0.0",
+    "es6-promise-polyfill": "^1.2.0",
+    "es7-object-polyfill": "^1.0.1",
+    "formdata-polyfill": "^4.0.10",
+    "nodelist-foreach-polyfill": "^1.2.0",
+    "whatwg-fetch": "^3.6.2"
   }
 }
